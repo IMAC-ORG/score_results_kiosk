@@ -19,7 +19,7 @@ if [ "$EUID" -eq 0 ]; then
 fi
 
 # Verify we're on the right OS
-if ! grep -q "Debian GNU/Linux 12" /etc/os-release; then
+if ! grep -q 'VERSION_ID="12"' /etc/os-release; then
     echo "WARNING: This script is designed for Raspberry Pi OS Bookworm (Legacy, 32-bit)"
     read -p "Continue anyway? (y/n) " -n 1 -r
     echo
