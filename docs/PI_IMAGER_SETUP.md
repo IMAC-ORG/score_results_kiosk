@@ -19,9 +19,9 @@ This guide walks you through configuring your Raspberry Pi SD card using Raspber
 
 1. Open **Raspberry Pi Imager** on your computer
 2. You should see the main screen with three buttons:
-   - Raspberry Pi Device
-   - Operating System
-   - Storage
+ - Raspberry Pi Device
+ - Operating System
+ - Storage
 
 [SCREENSHOT PLACEHOLDER: Main Pi Imager window]
 
@@ -41,10 +41,10 @@ This guide walks you through configuring your Raspberry Pi SD card using Raspber
 
 1. Click **"Operating System"**
 2. Select **"Raspberry Pi OS (Legacy, 32-bit)"**
-   - This is also labeled as "Raspberry Pi OS (Legacy) - A port of Debian Bookworm with security updates..."
-   - **CRITICAL:** Must be the **32-bit Legacy version** (Bookworm)
-   - **DO NOT** use Raspberry Pi OS (64-bit)
-   - **DO NOT** use Raspberry Pi OS (other)
+ - This is also labeled as "Raspberry Pi OS (Legacy) - A port of Debian Bookworm with security updates..."
+ - **CRITICAL:** Must be the **32-bit Legacy version** (Bookworm)
+ - **DO NOT** use Raspberry Pi OS (64-bit)
+ - **DO NOT** use Raspberry Pi OS (other)
 
 [SCREENSHOT PLACEHOLDER: OS selection showing "Raspberry Pi OS (Legacy, 32-bit)" highlighted]
 
@@ -80,22 +80,22 @@ You should now see the "OS Customisation" window with multiple tabs.
 #### General Tab Settings:
 
 **Hostname:**
-- ☑ **Check** "Set hostname"
+- **Check** "Set hostname"
 - Enter: `aerojudge`
 
 **Username and Password:**
-- ☑ **Check** "Set username and password"
+- **Check** "Set username and password"
 - Username: `resultskiosk`
 - Password: `ScoreKiosk#2025`
 
 **Wireless LAN:**
-- ☑ **Check** "Configure wireless LAN"
+- **Check** "Configure wireless LAN"
 - SSID: `AeroJudgeNET`
 - Password: `2Pr1v@TE`
 - Wireless LAN country: `US` (or your country code)
 
 **Locale Settings:**
-- ☑ **Check** "Set locale settings"
+- **Check** "Set locale settings"
 - Time zone: `America/New_York` (or your timezone)
 - Keyboard layout: `us` (or your layout)
 
@@ -108,7 +108,7 @@ You should now see the "OS Customisation" window with multiple tabs.
 Click the **"SERVICES"** tab at the top.
 
 **SSH:**
-- ☑ **Check** "Enable SSH"
+- **Check** "Enable SSH"
 - Select: **"Use password authentication"**
 
 This allows you to connect remotely to install the kiosk software.
@@ -122,8 +122,8 @@ This allows you to connect remotely to install the kiosk software.
 Click the **"OPTIONS"** tab at the top.
 
 **Recommended Settings:**
-- ☑ Check "Eject media when finished"
-- ☑ Check "Enable telemetry" (optional, your choice)
+- Check "Eject media when finished"
+- Check "Enable telemetry" (optional, your choice)
 
 Leave other settings at default.
 
@@ -199,7 +199,7 @@ Here's what you configured:
 **Can't find "Raspberry Pi OS (Legacy, 32-bit)"?**
 - Make sure you have the latest version of Raspberry Pi Imager
 - Look for the version that says "Bookworm" and "32-bit"
-- It may be under "Raspberry Pi OS (other)" → "Raspberry Pi OS (Legacy, 32-bit)"
+- It may be under "Raspberry Pi OS (other)" "Raspberry Pi OS (Legacy, 32-bit)"
 
 **Pi won't connect to WiFi?**
 - Double-check SSID and password are exact (case-sensitive)
