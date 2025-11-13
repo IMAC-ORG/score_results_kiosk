@@ -1,59 +1,148 @@
-#!/bin/bash
+# Installation Guide
 
-# Find Chromium browser process ID
-chromium_pid=$(pgrep chromium | head -1)
+## Prerequisites
 
-# Check if Chromium is running
-while [[ -z $chromium_pid ]]; do
-  echo "Chromium browser is not running yet."
-  sleep 10
-  chromium_pid=$(pgrep chromium | head -1)
-done
+You must complete the [Pi Imager Setup](PI_IMAGER_SETUP.md) **BEFORE** running this installer.
 
-echo "Chromium browser process ID: $chromium_pid"
+Required settings from Pi Imager:
+- **OS:** Raspberry Pi OS (Legacy, 32-bit) Bookworm
+- **Hostname:** aerojudge
+- **Username:** resultskiosk
+- **Password:** ScoreKiosk#2025
+- **WiFi:** AeroJudgeNET
+- **Password** 2Pr1v@TE
+- **SSH:** Enabled
 
-export XDG_RUNTIME_DIR=/run/user/1000
+---
 
-# Initial pause to avoid loop timing errors
-sleep 30
+## Installation Steps
 
-# Loop to send keyboard events
-while true; do
+### 1. Boot Your Pi
 
-# Switch to Local Server Results
-    # Send Ctrl+Tab using `wtype` command
-    wtype -M ctrl -P Tab
-    # Send Ctrl+Tab using `wtype` command
-    wtype -m ctrl -p Tab
+Insert the SD card and power on your Raspberry Pi. Wait 2-3 minutes for first boot.
 
-  #Refresh to beginning of results Page
-    # Home using `wtype` command
-    wtype -P Home
-    # Home using `wtype` command
-    wtype -p Home
+### 2. Connect via SSH
 
- #refresh Page
-    # Send Ctrl+F5 using `wtype` command
-    wtype -M ctrl -P F5
-    # Send Ctrl+F5 using `wtype` command
-    wtype -m ctrl -p F5
+From your computer:
 
-  sleep 30
+```bash
+ssh resultskiosk@aerojudge.local
+# Password: ScoreKiosk#2025
+```
 
-  # Scroll Page Down
-    # Send PgDN using `wtype` command
-    wtype -P Next
-    # Send PgDN using `wtype` command
-    wtype -p Next
+### 3. Clone Repository
 
-  sleep 30
+```bash
+git clone https://github.com/IMAC-ORG/score_results_kiosk.git
+cd score_results_kiosk
+```
 
-# Switch to Splash
-  # Send Ctrl+Tab using `wtype` command
-  wtype -M ctrl -P Tab
-  # Send Ctrl+Tab using `wtype` command
-  wtype -m ctrl -p Tab
+### 4. Run Installer
 
-  sleep 3
+```bash
+chmod +x install.sh
+./install.sh
+```
 
-done
+The installer will:
+- Install required packages (wtype, chromium-browser)
+- Copy splash screen and scripts
+- Configure Wayfire window manager
+- Hide mouse cursor
+- Set up auto-login
+- Configure display rotation (portrait mode)
+- Automatically reboot
+
+**Total time:** ~2 minutes (plus reboot)
+
+### 5. Verify
+
+After reboot, your kiosk should automatically:
+- Display splash screen for 3 seconds
+- Switch to results page
+- Rotate between splash and results continuously
+
+---
+
+## What Gets Installed
+
+The installer creates/modifies:
+- `~/splashv/splash.png` - Splash screen image
+- `~/switchtab.sh` - Tab rotation script
+- `~/.config/wayfire.ini` - Window manager config
+- `~/.config/lxsession/LXDE-pi/autostart` - Auto-start config
+- `/etc/systemd/system/getty@tty1.service.d/autologin.conf` - Auto-login
+
+---
+
+## Troubleshooting
+
+### Installer Fails
+
+**Package installation errors:**
+```bash
+sudo apt update
+sudo apt upgrade
+```
+Then re-run installer.
+
+**Permission denied:**
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+### Kiosk Not Starting After Reboot
+
+**Check if Wayfire is running:**
+```bash
+ps aux | grep wayfire
+```
+
+**Check if Chromium is running:**
+```bash
+ps aux | grep chromium
+```
+
+### Results Not Showing
+
+**Verify Score server:**
+- Score must be running at 192.168.8.100
+- Web server feature must be enabled in Score
+- Results must be published to `reports\kiosk` folder
+
+**Test URL directly:**
+```bash
+curl http://192.168.8.100/kiosk/report_results.html
+```
+
+### Re-run Installer
+
+Safe to re-run installer multiple times:
+```bash
+cd score_results_kiosk
+./install.sh
+```
+
+---
+
+## Getting Help
+
+If you encounter issues:
+
+1. Check the troubleshooting steps above
+2. Verify Pi Imager settings were applied correctly
+3. Confirm you're using Raspberry Pi OS Legacy 32-bit
+4. Check GitHub issues for similar problems
+5. Create a new issue with error details
+
+---
+
+## Next Steps
+
+Once installed and verified:
+
+- Position display at your event within WiFi network range
+- Test with actual Score results
+
+Your kiosk is now ready for competition use!
